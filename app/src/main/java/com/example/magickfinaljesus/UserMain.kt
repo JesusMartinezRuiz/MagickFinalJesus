@@ -1,5 +1,6 @@
 package com.example.magickfinaljesus
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +57,10 @@ class UserMain : AppCompatActivity() {
                     lista.clear()
                     snapshot.children.forEach { hijo->
                         val pojo_usuario=hijo?.getValue(Cartas::class.java)
-                        lista.add(pojo_usuario!!)
+                        if(pojo_usuario!!.disponible==true){
+                            lista.add(pojo_usuario!!)
+                        }
+
                     }
 
                 }
@@ -66,11 +70,12 @@ class UserMain : AppCompatActivity() {
             })
 
 
+    }
 
-
-
-
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val actividad = Intent(applicationContext,MainActivity::class.java)
+        startActivity (actividad)
     }
 
 }
