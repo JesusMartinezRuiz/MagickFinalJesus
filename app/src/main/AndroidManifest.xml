@@ -9,8 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MagickFinalJesus">
-        <activity android:name=".Registro"></activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:exported="true"
+            android:name=".UserMain"
+            android:label="@string/title_activity_user_main"></activity>
+        <activity android:name=".Registro" />
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

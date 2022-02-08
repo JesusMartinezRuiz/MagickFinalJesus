@@ -92,8 +92,8 @@ class MainActivity : AppCompatActivity() {
                                     commit()
                                 }
 
-                                //val actividad = Intent(applicationContext,BienvenidoUsuario::class.java)
-                                //startActivity (actividad)
+                                val actividad = Intent(applicationContext,UserMain::class.java)
+                                startActivity (actividad)
 
 
                             }else if(name.text.toString().equals("") || pass.text.toString().equals("")){

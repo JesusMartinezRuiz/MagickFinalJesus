@@ -7,4 +7,8 @@
     <string name="nombre_canal">Notificacion basica</string>
     <string name="id_canal">canal_basico</string>
     <string name="description_canal">Canal de prueba</string>
+    <string name="title_activity_user_main">MainActivity</string>
+    <string name="title_home">Cartas</string>
+    <string name="title_dashboard">Eventos</string>
+    <string name="title_notifications">Seguimiento</string>
 </resources>
