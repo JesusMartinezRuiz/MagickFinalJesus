@@ -10,5 +10,5 @@
     <string name="title_activity_user_main">MainActivity</string>
     <string name="title_home">Cartas</string>
     <string name="title_dashboard">Eventos</string>
-    <string name="title_notifications">Seguimiento</string>
+    <string name="title_notifications">Mis Cosas</string>
 </resources>

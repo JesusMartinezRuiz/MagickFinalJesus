@@ -7,4 +7,9 @@ data class Cartas(
     val nombre:String?=null,
     val precio:Int?=null,
     val disponible:Boolean?=null,
-    val img:String?=null):Serializable
+    val img:String?=null,
+    val blanco:Boolean?=null,
+    val negro:Boolean?=null,
+    val azul:Boolean?=null,
+    val rojo:Boolean?=null,
+    val verde:Boolean?=null):Serializable

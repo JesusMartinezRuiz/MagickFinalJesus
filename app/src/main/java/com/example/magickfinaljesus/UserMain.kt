@@ -21,9 +21,15 @@ class UserMain : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
     lateinit var lista:ArrayList<Cartas>
+    lateinit var listaEventos:ArrayList<Eventos>
     private lateinit var db_ref: DatabaseReference
     private lateinit var sto_ref: StorageReference
-    val adaptador by lazy{
+
+    val adaptadorEvento by lazy{
+        AdaptadorEventos(listaEventos,this)
+    }
+
+    val adaptadorCarta by lazy{
         AdaptadorCartas(lista, this)
     }
 
@@ -33,6 +39,7 @@ class UserMain : AppCompatActivity() {
         db_ref= FirebaseDatabase.getInstance().getReference()
         sto_ref= FirebaseStorage.getInstance().getReference()
         lista=ArrayList<Cartas>()
+        listaEventos=ArrayList<Eventos>()
 
         binding = ActivityUserMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,9 +63,9 @@ class UserMain : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     lista.clear()
                     snapshot.children.forEach { hijo->
-                        val pojo_usuario=hijo?.getValue(Cartas::class.java)
-                        if(pojo_usuario!!.disponible==true){
-                            lista.add(pojo_usuario!!)
+                        val pojo_carta=hijo?.getValue(Cartas::class.java)
+                        if(pojo_carta!!.disponible==true){
+                            lista.add(pojo_carta!!)
                         }
 
                     }
@@ -68,6 +75,30 @@ class UserMain : AppCompatActivity() {
 
                 }
             })
+
+
+        db_ref.child("tienda")
+            .child("eventos")
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    listaEventos.clear()
+                    snapshot.children.forEach { hijo->
+                        val pojo_evento=hijo?.getValue(Eventos::class.java)
+                        if(pojo_evento!!.aforo_ocupado!! < pojo_evento.aforo_max!!){
+                            listaEventos.add(pojo_evento!!)
+                        }
+
+                    }
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+
+
+
+
 
 
     }

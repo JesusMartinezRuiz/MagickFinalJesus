@@ -11,12 +11,19 @@ import com.example.magickfinaljesus.databinding.RowCartaBinding
 import java.util.*
 
 class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
-    RecyclerView.Adapter<AdaptadorCartas.ViewHolder>()/*, Filterable*/ {
+    RecyclerView.Adapter<AdaptadorCartas.ViewHolder>(), Filterable {
 
-    var allSelectedlunas=false
-    var allSelected = true
-    var onlyRocosos = true
+
     var elementosFiltrados = elementos
+    var colores=""
+    var allSelected=true
+    var blanco=false
+    var negro=false
+    var azul=false
+    var rojo=false
+    var verde=false
+
+
 
     class ViewHolder(val bind:RowCartaBinding)
         : RecyclerView.ViewHolder(bind.root)
@@ -30,6 +37,7 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val elem = elementosFiltrados[position]
+
         with(holder.bind){
             nombreRowCarta.text = elem.nombre
             Glide.with(con).load(elem.img).into(ivRowCarta)
@@ -41,15 +49,18 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
 //            }
 
         }
+
+
+
     }
 
     override fun getItemCount(): Int {
         return elementosFiltrados.size
     }
 
-//    override fun getFilter(): Filter {
-//        return object : Filter(){
-//            override fun performFiltering(p0: CharSequence?): FilterResults {
+    override fun getFilter(): Filter {
+        return object : Filter(){
+            override fun performFiltering(p0: CharSequence?): FilterResults {
 //                val texto = p0.toString()
 //                if (texto.isEmpty()) {
 //                    elementosFiltrados = elementos
@@ -64,27 +75,33 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
 //                    }
 //                    elementosFiltrados = elemetosFiltrados2
 //                }
-//
-//
-//
-//
-//                if (allSelectedlunas){
-//                    elementosFiltrados = elementosFiltrados.filter {
-//                        it.nSatelites>0
-//                    }
-//                }
-//
-//
-//
-//                val filterResults = FilterResults()
-//                filterResults.values = elementosFiltrados
-//                return filterResults
-//            }
-//
-//            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-//                elementosFiltrados = p1?.values as MutableList<Cartas>
-//                notifyDataSetChanged()
-//            }
-//        }
-//    }
+
+
+
+                if (!allSelected){
+                    elementosFiltrados = elementosFiltrados.filter {
+                        it.azul==true && azul==true
+                    }
+                }else{
+                    elementosFiltrados=elementos
+                }
+
+
+
+
+
+
+
+                val filterResults = FilterResults()
+                filterResults.values = elementosFiltrados
+
+                return filterResults
+            }
+
+            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+                elementosFiltrados = p1?.values as MutableList<Cartas>
+                notifyDataSetChanged()
+            }
+        }
+    }
 }
