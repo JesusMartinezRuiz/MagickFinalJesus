@@ -1,17 +1,15 @@
-package com.example.magickfinaljesus.ui.home
+package com.example.magickfinaljesus.NormalUser.CartasUser
 
-import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.RadioButton
 import android.widget.SearchView
-import android.widget.Switch
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,23 +20,25 @@ import com.example.magickfinaljesus.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.io.Serializable
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     lateinit var menu: Menu
+    var colorChecked=mutableListOf(true,true,true,true,true)
 
     val ma by lazy{
         activity as UserMain
     }
     private val binding get() = _binding!!
 
-    lateinit var recycler: RecyclerView
-    lateinit var lista:ArrayList<Cartas>
     private lateinit var db_ref: DatabaseReference
     private lateinit var sto_ref: StorageReference
+
+    val adaptadorCarta by lazy{
+        AdaptadorCartas(ma.listaCarta, ma.contextoUserMain , colorChecked)
+    }
 
 
     // This property is only valid between onCreateView and
@@ -55,7 +55,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        lateinit var menu: Menu
 
 
         db_ref= FirebaseDatabase.getInstance().getReference()
@@ -66,60 +65,63 @@ class HomeFragment : Fragment() {
             binding.checkBlancoCartas,binding.checkNegroCartas,binding.checkAzulCartas,binding.checkRojoCartas,binding.checkVerdeCartas
         )
 
-
-        var blanco=binding.checkBlancoCartas
-        var negro=binding.checkNegroCartas
-        var azul=binding.checkAzulCartas
-        var rojo=binding.checkRojoCartas
-        var verde=binding.checkVerdeCartas
-
-
-
         listaCheck.forEach {
             it.isEnabled = false
-
+            it.isChecked= false
         }
 
         binding.swiCartas.setOnCheckedChangeListener { compoundButton, b ->
             listaCheck.forEach {
                 it.isEnabled = b
-                it.isChecked=false
+                it.isChecked= true
             }
-
-            ma.adaptadorCarta.allSelected = !b
+            adaptadorCarta.allSelected = !b
             refreshFilter()
         }
-
-        binding.checkAzulCartas.setOnClickListener {
-                ma.adaptadorCarta.azul=true
-            refreshFilter()
-        }
-
-
-//        listaCheck.forEach {
-//            it.setOnClickListener {
-//
-//                refreshFilter()
-//            }
-//        }
-
-
 
         return root
     }
 
+
+
     override fun onStart() {
         super.onStart()
 
+        var listaCheck = listOf(
+            binding.checkBlancoCartas,binding.checkNegroCartas,binding.checkAzulCartas,binding.checkRojoCartas,binding.checkVerdeCartas
+        )
 
-        binding.rvComprarCartas.apply {
-            adapter= ma.adaptadorCarta
-            layoutManager=LinearLayoutManager(ma)
-            setHasFixedSize(true)
+        with(binding){
+
+
+                rvComprarCartas.adapter= adaptadorCarta
+                rvComprarCartas.layoutManager=LinearLayoutManager(ma)
+                cartasSearcher.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    adaptadorCarta.filter.filter(p0)
+                    return false
+                }
+            })
+
+
+            listaCheck.forEach {
+                it.setOnClickListener {
+                    val cb = it as CheckBox
+                    val index = listaCheck.indexOf(cb)
+                    colorChecked[index] = cb.isChecked
+                    adaptadorCarta.colors = colorChecked
+                    adaptadorCarta.filter.filter(cartasSearcher.query)
+                }
+            }
+
         }
-
-
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -128,7 +130,7 @@ class HomeFragment : Fragment() {
 
 
     fun refreshFilter(){
-        ma.adaptadorCarta.filter.filter("")
+        adaptadorCarta.filter.filter("")
     }
 
 

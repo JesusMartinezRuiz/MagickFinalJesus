@@ -1,16 +1,14 @@
-package com.example.magickfinaljesus.ui.dashboard
+package com.example.magickfinaljesus.NormalUser.Eventos
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.magickfinaljesus.R
 import com.example.magickfinaljesus.UserMain
 import com.example.magickfinaljesus.databinding.FragmentDashboardBinding
 import com.google.firebase.database.DatabaseReference

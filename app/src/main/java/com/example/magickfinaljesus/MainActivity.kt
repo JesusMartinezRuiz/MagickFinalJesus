@@ -92,8 +92,18 @@ class MainActivity : AppCompatActivity() {
                                     commit()
                                 }
 
-                                val actividad = Intent(applicationContext,UserMain::class.java)
-                                startActivity (actividad)
+                                if (pojo_usuario.tipo=="1"){
+                                    val actividad = Intent(applicationContext,UserMain::class.java)
+                                    startActivity (actividad)
+                                }else{
+                                    val actividad = Intent(applicationContext,AdminMain::class.java)
+                                    startActivity (actividad)
+                                }
+
+
+
+
+
 
 
                             }else if(name.text.toString().equals("") || pass.text.toString().equals("")){
@@ -168,6 +178,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val actividad = Intent(applicationContext,MainActivity::class.java)
+        startActivity (actividad)
     }
 
     private fun generarNotificacion(id_noti:Int, pojo: Serializable, contenido:String, titulo:String, destino:Class<*>) {

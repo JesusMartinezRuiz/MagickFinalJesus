@@ -2,6 +2,7 @@ package com.example.magickfinaljesus
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CheckBox
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -25,12 +26,18 @@ class UserMain : AppCompatActivity() {
     private lateinit var db_ref: DatabaseReference
     private lateinit var sto_ref: StorageReference
 
+
+
     val adaptadorEvento by lazy{
         AdaptadorEventos(listaEventos,this)
     }
 
-    val adaptadorCarta by lazy{
-        AdaptadorCartas(lista, this)
+    val listaCarta by lazy{
+       lista
+    }
+
+    val contextoUserMain by lazy{
+        this
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +47,7 @@ class UserMain : AppCompatActivity() {
         sto_ref= FirebaseStorage.getInstance().getReference()
         lista=ArrayList<Cartas>()
         listaEventos=ArrayList<Eventos>()
+
 
         binding = ActivityUserMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -95,11 +103,6 @@ class UserMain : AppCompatActivity() {
 
                 }
             })
-
-
-
-
-
 
     }
 

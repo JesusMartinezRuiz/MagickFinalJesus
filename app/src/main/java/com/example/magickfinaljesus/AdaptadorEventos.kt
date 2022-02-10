@@ -38,11 +38,13 @@ class AdaptadorEventos(val elementos: List<Eventos>, val con: UserMain) :
 
             Glide.with(con).load(elem.img).into(rowIvEvento)
 
+            rowApuntarseEvento.setOnClickListener {
+
+
+
+            }
 
         }
-
-
-
     }
 
     override fun getItemCount(): Int {
@@ -52,20 +54,6 @@ class AdaptadorEventos(val elementos: List<Eventos>, val con: UserMain) :
     override fun getFilter(): Filter {
         return object : Filter(){
             override fun performFiltering(p0: CharSequence?): FilterResults {
-//                val texto = p0.toString()
-//                if (texto.isEmpty()) {
-//                    elementosFiltrados = elementos
-//                } else {
-//                    val elemetosFiltrados2 = mutableListOf<Cartas>()
-//                    val textoMinuscula = texto.lowercase(Locale.ROOT)
-//                    for (e in elementos) {
-//                        val nombreMinuscula = e.nombre?.lowercase(Locale.ROOT)
-//                        if(nombreMinuscula!!.contains(textoMinuscula)){
-//                            elemetosFiltrados2.add(e)
-//                        }
-//                    }
-//                    elementosFiltrados = elemetosFiltrados2
-//                }
 
 
 

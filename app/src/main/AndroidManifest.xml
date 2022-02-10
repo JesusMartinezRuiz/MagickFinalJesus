@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.magickfinaljesus">
+    package="com.example.magickfinaljesus" >
 
     <application
         android:allowBackup="true"
@@ -8,14 +8,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MagickFinalJesus">
+        android:theme="@style/Theme.MagickFinalJesus" >
+
+        <activity android:name=".AdminMain" />
         <activity
-            android:exported="true"
             android:name=".UserMain"
-            android:label="@string/title_activity_user_main"></activity>
+            android:exported="true"
+            android:label="@string/title_activity_user_main" />
         <activity android:name=".Registro" />
-        <activity android:name=".MainActivity"
-            android:exported="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +30,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.magickfinaljesus.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

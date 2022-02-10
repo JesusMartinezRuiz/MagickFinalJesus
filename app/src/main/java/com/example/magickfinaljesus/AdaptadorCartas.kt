@@ -10,18 +10,13 @@ import com.bumptech.glide.Glide
 import com.example.magickfinaljesus.databinding.RowCartaBinding
 import java.util.*
 
-class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
+class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:List<Boolean>) :
     RecyclerView.Adapter<AdaptadorCartas.ViewHolder>(), Filterable {
 
 
     var elementosFiltrados = elementos
-    var colores=""
     var allSelected=true
-    var blanco=false
-    var negro=false
-    var azul=false
-    var rojo=false
-    var verde=false
+    val color = listOf("blanco", "negro", "azul", "rojo","verde")
 
 
 
@@ -43,15 +38,15 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
             Glide.with(con).load(elem.img).into(ivRowCarta)
             precioRowCarta.text = elem.precio.toString()
 
+
+
+
 //            rowPlaneta.setOnClickListener {
 //                con.planetaSeleccionado= elem
 //                con.navController.navigate(R.id.FirstFragment)
 //            }
 
         }
-
-
-
     }
 
     override fun getItemCount(): Int {
@@ -61,26 +56,27 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain) :
     override fun getFilter(): Filter {
         return object : Filter(){
             override fun performFiltering(p0: CharSequence?): FilterResults {
-//                val texto = p0.toString()
-//                if (texto.isEmpty()) {
-//                    elementosFiltrados = elementos
-//                } else {
-//                    val elemetosFiltrados2 = mutableListOf<Cartas>()
-//                    val textoMinuscula = texto.lowercase(Locale.ROOT)
-//                    for (e in elementos) {
-//                        val nombreMinuscula = e.nombre?.lowercase(Locale.ROOT)
-//                        if(nombreMinuscula!!.contains(textoMinuscula)){
-//                            elemetosFiltrados2.add(e)
-//                        }
-//                    }
-//                    elementosFiltrados = elemetosFiltrados2
-//                }
+                val texto = p0.toString()
+                if (texto.isEmpty()) {
+                    elementosFiltrados = elementos
+                } else {
+                    val elemetosFiltrados2 = mutableListOf<Cartas>()
+                    val textoMinuscula = texto.lowercase(Locale.ROOT)
+                    for (e in elementos) {
+                        val nombreMinuscula = e.nombre?.lowercase(Locale.ROOT)
+                        if(nombreMinuscula!!.contains(textoMinuscula)){
+                            elemetosFiltrados2.add(e)
+                        }
+                    }
+                    elementosFiltrados = elemetosFiltrados2
+                }
 
 
 
                 if (!allSelected){
-                    elementosFiltrados = elementosFiltrados.filter {
-                        it.azul==true && azul==true
+                    elementosFiltrados = elementosFiltrados.filter{
+                        val index = color.indexOf(it.color)
+                        colors[index]
                     }
                 }else{
                     elementosFiltrados=elementos
