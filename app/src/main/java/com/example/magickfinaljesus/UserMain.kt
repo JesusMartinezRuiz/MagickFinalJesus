@@ -29,7 +29,7 @@ class UserMain : AppCompatActivity() {
 
 
     val adaptadorEvento by lazy{
-        AdaptadorEventos(listaEventos,this)
+        AdaptadorEventos(listaEventos,this, idDeUsuario)
     }
 
     val listaCarta by lazy{
@@ -38,6 +38,19 @@ class UserMain : AppCompatActivity() {
 
     val contextoUserMain by lazy{
         this
+    }
+
+
+    val idDeUsuario by lazy{
+        val app_id = getString(R.string.app_name)
+        val sp_name = "${app_id}_SP_Login"
+        var SP = getSharedPreferences(sp_name,0)
+
+        SP.getString(
+            getString(R.string.id),
+            "falloShared"
+        ).toString()
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

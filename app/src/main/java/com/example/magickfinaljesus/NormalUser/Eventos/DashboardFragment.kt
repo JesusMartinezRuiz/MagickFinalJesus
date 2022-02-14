@@ -72,7 +72,4 @@ class DashboardFragment : Fragment() {
     }
 
 
-    fun refreshFilter(){
-        ma.adaptadorEvento.filter.filter("")
-    }
 }
