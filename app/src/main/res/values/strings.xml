@@ -23,4 +23,9 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_admin_main_navigation">AdminMainNavigation</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="title_activity_administrador_main">AdministradorMain</string>
+    <string name="title_activity_admin_navigation_main">AdminNavigationMain</string>
+    <string name="title_activity_ei">EiActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

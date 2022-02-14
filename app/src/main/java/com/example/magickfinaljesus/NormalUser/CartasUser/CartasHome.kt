@@ -1,8 +1,6 @@
 package com.example.magickfinaljesus.NormalUser.CartasUser
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -12,19 +10,17 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.magickfinaljesus.AdaptadorCartas
-import com.example.magickfinaljesus.Cartas
 import com.example.magickfinaljesus.UserMain
-import com.example.magickfinaljesus.databinding.FragmentHomeBinding
+import com.example.magickfinaljesus.databinding.FragmentCartasBinding
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class HomeFragment : Fragment() {
+class CartasHome : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var cartasHomeView: CartasHomeView
+    private var _binding: FragmentCartasBinding? = null
     lateinit var menu: Menu
     var colorChecked=mutableListOf(true,true,true,true,true)
 
@@ -49,10 +45,10 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        cartasHomeView =
+            ViewModelProvider(this).get(CartasHomeView::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentCartasBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
 

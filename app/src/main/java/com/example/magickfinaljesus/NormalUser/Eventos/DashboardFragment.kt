@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.magickfinaljesus.UserMain
-import com.example.magickfinaljesus.databinding.FragmentDashboardBinding
+import com.example.magickfinaljesus.databinding.FragmentEventosBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -19,7 +19,7 @@ import com.google.firebase.storage.StorageReference
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentEventosBinding? = null
     lateinit var menu: Menu
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -43,7 +43,7 @@ class DashboardFragment : Fragment() {
         db_ref= FirebaseDatabase.getInstance().getReference()
         sto_ref= FirebaseStorage.getInstance().getReference()
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentEventosBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
 

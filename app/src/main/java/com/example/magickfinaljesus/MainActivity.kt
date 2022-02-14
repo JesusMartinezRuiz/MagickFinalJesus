@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                                     val actividad = Intent(applicationContext,UserMain::class.java)
                                     startActivity (actividad)
                                 }else{
-                                    val actividad = Intent(applicationContext,AdminMain::class.java)
+                                    val actividad = Intent(applicationContext, EiActivity::class.java)
                                     startActivity (actividad)
                                 }
 
