@@ -99,4 +99,10 @@ class EiActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_ei)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val actividad = Intent(applicationContext,MainActivity::class.java)
+        startActivity (actividad)
+    }
 }

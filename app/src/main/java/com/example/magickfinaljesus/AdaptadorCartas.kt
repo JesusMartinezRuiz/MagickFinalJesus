@@ -2,13 +2,18 @@ package com.example.magickfinaljesus
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.magickfinaljesus.databinding.RowCartaBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.*
+
+private lateinit var db_ref: DatabaseReference
 
 class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:List<Boolean>) :
     RecyclerView.Adapter<AdaptadorCartas.ViewHolder>(), Filterable {
@@ -24,6 +29,7 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:
         : RecyclerView.ViewHolder(bind.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        db_ref= FirebaseDatabase.getInstance().getReference()
         val v =
             RowCartaBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -38,12 +44,15 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:
             Glide.with(con).load(elem.img).into(ivRowCarta)
             precioRowCarta.text = elem.precio.toString()
 
-
-
-
-//            rowPlaneta.setOnClickListener {
-//                con.planetaSeleccionado= elem
-//                con.navController.navigate(R.id.FirstFragment)
+//            comprarRowCarta.setOnClickListener {
+//                val id_reservaCartas=db_ref.child("tienda").child("reservas_carta").push().key!!
+//                val nueva_reserva=ReservaEventos(id_reservaEvento,idUsuario,elem.id)
+//                db_ref.child("tienda").child("reservas_eventos").child(id_reservaEvento).setValue(nueva_reserva)
+//                db_ref.child("tienda").child("eventos").child(elem.id.toString()).child("aforo_ocupado").setValue(elem.aforo_ocupado!!.toInt()+1)
+//                rowAforoOcupadoEvento.text= (elem.aforo_ocupado.toInt()+1).toString()
+//                //desabilitar el imageview solo de este elemento
+//                rowApuntarseEvento.visibility= View.INVISIBLE
+//
 //            }
 
         }
@@ -72,7 +81,6 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:
                 }
 
 
-
                 if (!allSelected){
                     elementosFiltrados = elementosFiltrados.filter{
                         val index = color.indexOf(it.color)
@@ -83,11 +91,6 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:
                 }
 
 
-
-
-
-
-
                 val filterResults = FilterResults()
                 filterResults.values = elementosFiltrados
 
@@ -95,6 +98,7 @@ class AdaptadorCartas(val elementos: List<Cartas>, val con: UserMain,var colors:
             }
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+                val a = p1?.values
                 elementosFiltrados = p1?.values as MutableList<Cartas>
                 notifyDataSetChanged()
             }

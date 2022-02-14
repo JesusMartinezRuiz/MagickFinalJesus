@@ -19,8 +19,6 @@ import com.google.firebase.storage.StorageReference
 class UserMain : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserMainBinding
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var navController: NavController
     lateinit var lista:ArrayList<Cartas>
     lateinit var listaEventos:ArrayList<Eventos>
     private lateinit var db_ref: DatabaseReference
@@ -40,7 +38,6 @@ class UserMain : AppCompatActivity() {
         this
     }
 
-
     val idDeUsuario by lazy{
         val app_id = getString(R.string.app_name)
         val sp_name = "${app_id}_SP_Login"
@@ -50,7 +47,6 @@ class UserMain : AppCompatActivity() {
             getString(R.string.id),
             "falloShared"
         ).toString()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

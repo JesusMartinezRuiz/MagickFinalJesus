@@ -122,13 +122,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
 
-
-
-
-
         }
-
-
 
         registrar.setOnClickListener {
             val actividad = Intent(applicationContext,Registro::class.java)

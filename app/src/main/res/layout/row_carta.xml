@@ -19,6 +19,7 @@
         android:id="@+id/nombre_row_carta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="Nombre"
         app:layout_constraintStart_toEndOf="@+id/iv_row_carta"
         app:layout_constraintTop_toTopOf="@+id/iv_row_carta" />

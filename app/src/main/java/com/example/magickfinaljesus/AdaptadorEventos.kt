@@ -1,6 +1,7 @@
 package com.example.magickfinaljesus
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
@@ -44,8 +45,8 @@ class AdaptadorEventos(val elementos: List<Eventos>, val con: UserMain, val idUs
                 db_ref.child("tienda").child("reservas_eventos").child(id_reservaEvento).setValue(nueva_reserva)
                 db_ref.child("tienda").child("eventos").child(elem.id.toString()).child("aforo_ocupado").setValue(elem.aforo_ocupado!!.toInt()+1)
                 rowAforoOcupadoEvento.text= (elem.aforo_ocupado.toInt()+1).toString()
-
-
+                //desabilitar el imageview solo de este elemento
+                rowApuntarseEvento.visibility= View.INVISIBLE
             }
 
         }
