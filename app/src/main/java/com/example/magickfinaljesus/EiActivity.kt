@@ -1,5 +1,6 @@
 package com.example.magickfinaljesus
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -12,14 +13,35 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.magickfinaljesus.databinding.ActivityEiBinding
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class EiActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityEiBinding
+    lateinit var listaAdmin:ArrayList<Cartas>
+    private lateinit var db_ref: DatabaseReference
+    private lateinit var sto_ref: StorageReference
+
+    val listaCartaAdmin by lazy{
+        listaAdmin
+    }
+
+    val contextoEiActivity by lazy{
+        this
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        db_ref= FirebaseDatabase.getInstance().getReference()
+        sto_ref= FirebaseStorage.getInstance().getReference()
+        listaAdmin=ArrayList<Cartas>()
+
+
 
         binding = ActivityEiBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -27,8 +49,8 @@ class EiActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarEi.toolbar)
 
         binding.appBarEi.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val actividad = Intent(applicationContext, CrearCarta::class.java)
+            startActivity (actividad)
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -42,6 +64,29 @@ class EiActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+
+
+
+        db_ref.child("tienda")
+            .child("cartas")
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    listaAdmin.clear()
+                    snapshot.children.forEach { hijo->
+                        val pojo_carta=hijo?.getValue(Cartas::class.java)
+                            listaAdmin.add(pojo_carta!!)
+
+                    }
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
